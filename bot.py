@@ -41,9 +41,9 @@ async def on_member_remove(member):
 
 @client.event
 async def on_guild_join(guild):
-        print(border)
+        print(config.border)
         print(f'Теперь ещё и {guild.name}')
-        print(border)
+        print(config.border)
 
 @client.command()
 async def hello(ctx):
@@ -90,7 +90,7 @@ async def girlpic(ctx):
                 if ctx.channel.is_nsfw():
                         await vt.vkPic(ctx, 'https://vk.com/album-43234662_00')
                 else:
-                        await ctx.send('Канал должен быть **NSFW**  ¯\_(ツ)_/¯')
+                        await ctx.send(r'Канал должен быть **NSFW**  ¯\_(ツ)_/¯')
         except AttributeError:
                 await ctx.send('Используйте эту команду только в **NSFW** канале')
 
@@ -112,7 +112,7 @@ async def what(ctx, *args):
                 definition = soup.find('p').text
                 await ctx.send(definition)
         else:
-                await ctx.send('Такой страницы не существует ¯\_(ツ)_/¯')
+                await ctx.send(r'Такой страницы не существует ¯\_(ツ)_/¯')
 
 @client.command(aliases=['погода'])
 async def weather(ctx, city):
