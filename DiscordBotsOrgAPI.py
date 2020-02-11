@@ -1,6 +1,7 @@
 import dbl
 from discord.ext import commands
 import config
+import asyncio
 
 class DiscordBotsOrgAPI(commands.Cog):
         def __init__(self, bot):
