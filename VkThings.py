@@ -5,6 +5,7 @@ from random import randint
 import discord
 import aiohttp
 from io import BytesIO
+import mysql.connector
 
 class VkThings:
         async def vkPic(self, ctx, url):
