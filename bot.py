@@ -76,6 +76,10 @@ async def villpic(ctx):
 async def rompic(ctx):
         await vt.vkPic(ctx, 'https://vk.com/album-184394012_00')
 
+@client.command()
+async def progpic(ctx):
+	await vt.vkPic(ctx, 'https://vk.com/album-187083413_00')
+
 @client.command(aliases=['papapic'])
 async def papichpic(ctx):
         await vt.vkPic(ctx, 'https://vk.com/album-181404250_00')
