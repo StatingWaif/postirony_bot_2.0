@@ -1,3 +1,4 @@
+discord.opus.load_opus('opus')
 import asyncio
 import discord
 import youtube_dl
@@ -7,7 +8,6 @@ import aiohttp
 
 queues = {}
 cursong = {}
-discord.opus.load_opus()
 youtube_dl.utils.bug_reports_message = lambda: ''
 
 ytdl_format_options = {
