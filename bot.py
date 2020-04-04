@@ -4,13 +4,17 @@ from DiscordBotsOrgAPI import DiscordBotsOrgAPI, dbl_setup
 from DiscordBotsOrgAPI import dbl_setup
 import config
 from VkThings import VkThings
+import music
 from random import randint, choice
 import wikipediaapi
 from bs4 import BeautifulSoup as bs
 import pyowm
 from DataBase import DataBase
+import asyncio
+import youtube_dl
 
-client = commands.Bot(command_prefix = '!')
+
+client = commands.Bot(commands.when_mentioned_or("!"))
 client.remove_command('help')
 
 dbl_setup(client)
@@ -162,7 +166,10 @@ async def help(ctx):
 
         embed.add_field(name='Команды для постироничных картинок:', value=config.postValue)
         embed.add_field(name='Команды для других картинок:', value=config.otherValue)
+        embed.add_field(name='Команды для музыки', value=config.musicValue)
         embed.add_field(name='Остальные команды:', value=config.notPicValue)
+        
         await ctx.send(embed=embed)
-
+        
+client.add_cog(music.Music(client))
 client.run(config.BOT_TOKEN)

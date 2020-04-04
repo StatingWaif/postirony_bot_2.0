@@ -7,3 +7,4 @@ wikipedia-api
 pyowm
 dblpy
 mysql-connector-python
+youtube_dl
