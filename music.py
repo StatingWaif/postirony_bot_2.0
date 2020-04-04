@@ -102,11 +102,11 @@ class Music(commands.Cog):
             cursong[guild.id] = player.title
     
     @commands.command()
-    async def poplay(self, ctx, *, url):
+    async def sr(self, ctx, *, url):
         await self.for_play(ctx=ctx, url=url)
 
     @commands.command()
-    async def poskip(self, ctx):
+    async def skip(self, ctx):
         ctx.voice_client.stop()
     
     @commands.command()
@@ -130,15 +130,15 @@ class Music(commands.Cog):
         await ctx.send(f'Сейчас играет: {song}')
         
     @commands.command()
-    async def popause(self, ctx):
+    async def pause(self, ctx):
         ctx.voice_client.pause()
 
     @commands.command()
-    async def poresume(self, ctx):
+    async def resume(self, ctx):
             ctx.voice_client.resume()
 
     
-    @poplay.before_invoke
+    @sr.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
