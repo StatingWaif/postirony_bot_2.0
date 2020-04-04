@@ -1,10 +1,11 @@
-discord.opus.load_opus('opus')
 import asyncio
 import discord
 import youtube_dl
 from discord.ext import commands
 from bs4 import BeautifulSoup as bs
 import aiohttp
+
+discord.opus.load_opus('opus')
 
 queues = {}
 cursong = {}
