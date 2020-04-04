@@ -5,8 +5,6 @@ from discord.ext import commands
 from bs4 import BeautifulSoup as bs
 import aiohttp
 
-#discord.opus.load_opus('opus')
-
 queues = {}
 cursong = {}
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -104,15 +102,15 @@ class Music(commands.Cog):
             cursong[guild.id] = player.title
     
     @commands.command()
-    async def post_play(self, ctx, *, url):
+    async def poplay(self, ctx, *, url):
         await self.for_play(ctx=ctx, url=url)
 
     @commands.command()
-    async def post_skip(self, ctx):
+    async def poskip(self, ctx):
         ctx.voice_client.stop()
     
     @commands.command()
-    async def song_list(self, ctx):
+    async def songlist(self, ctx):
         if not ctx.message.guild.id in queues:
             queues[ctx.message.guild.id] = []
         if queues[ctx.message.guild.id] == []:
@@ -132,11 +130,11 @@ class Music(commands.Cog):
         await ctx.send(f'Сейчас играет: {song}')
         
     @commands.command()
-    async def post_pause(self, ctx):
+    async def popause(self, ctx):
         ctx.voice_client.pause()
 
     @commands.command()
-    async def post_resume(self, ctx):
+    async def poresume(self, ctx):
             ctx.voice_client.resume()
 
     
