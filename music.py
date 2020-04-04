@@ -138,7 +138,7 @@ class Music(commands.Cog):
             ctx.voice_client.resume()
 
     
-    @post_play.before_invoke
+    @poplay.before_invoke
     async def ensure_voice(self, ctx):
         if ctx.voice_client is None:
             if ctx.author.voice:
