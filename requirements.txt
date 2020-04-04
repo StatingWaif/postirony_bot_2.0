@@ -8,3 +8,4 @@ pyowm
 dblpy
 mysql-connector-python
 youtube_dl
+discord.py[voice]
