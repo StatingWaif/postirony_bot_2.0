@@ -1,6 +1,3 @@
-# postirony_bot
-Sends postironic pics in discord(rus)
-
 Бот предназначен для русских пользователей дискорда. Также бот может воспроизводить музыку
 По команде бот отправляет рандомную постироничную картинку и не только постироничную.
 Картинки берутся из пабликов вк: memnij, inet_post, agrironia, kind_post, homepost, devkironiya,   papicheveryday, geekgirls, reddit, gachimuchi. Возможно, список будет пополняться.
