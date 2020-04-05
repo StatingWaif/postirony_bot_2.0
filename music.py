@@ -107,7 +107,10 @@ class Music(commands.Cog):
 
     @commands.command()
     async def skip(self, ctx):
-        ctx.voice_client.stop()
+        if ctx.voice_client is None:
+            pass
+        else:
+            ctx.voice_client.stop()
     
     @commands.command()
     async def songlist(self, ctx):
@@ -126,17 +129,32 @@ class Music(commands.Cog):
         
     @commands.command()
     async def cursong(self, ctx):
-        song = cursong[ctx.message.guild.id]
-        await ctx.send(f'Сейчас играет: {song}')
+        if ctx.voice_client is None:
+            pass
+        else:
+            song = cursong[ctx.message.guild.id]
+            await ctx.send(f'Сейчас играет: {song}')
         
     @commands.command()
     async def pause(self, ctx):
-        ctx.voice_client.pause()
+        if ctx.voice_client is None:
+            pass
+        else:
+            ctx.voice_client.pause()
 
     @commands.command()
     async def resume(self, ctx):
+        if ctx.voice_client is None:
+            pass
+        else:
             ctx.voice_client.resume()
 
+    @commands.command()
+    async def clearq(self, ctx):
+        guild = ctx.message.guild
+        if guild.id in queues:
+            queues[guild.id] = []
+            await ctx.send('Очередь очищена')
     
     @sr.before_invoke
     async def ensure_voice(self, ctx):

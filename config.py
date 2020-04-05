@@ -14,7 +14,7 @@ DBL_TOKEN = str(os.environ.get('DBL_TOKEN'))
 PYOWM_TOKEN = str(os.environ.get('PYOWM_TOKEN'))
 BOT_TOKEN = str(os.environ.get('BOT_TOKEN'))
 
-border = '------------------------------------------'
+border = '------------------------'
 
 postValue = '\
 **!postpic** - классическая картинка\n \
@@ -46,5 +46,6 @@ musicValue = '\
 **!cursong** - текущая музыка\n \
 **!pause** - пауза\n \
 **!resume** - возобновление музыки \n \
-**!songlist** - список музыки в очереди \
+**!songlist** - список музыки в очереди \n \
+**!clearq** - очистить очередь \n \
 '
