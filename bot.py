@@ -25,12 +25,12 @@ async def on_ready():
         bot_activity = discord.Activity(name='своих родителей !help для списка команд', type=discord.ActivityType.listening)
         await client.change_presence(activity=bot_activity)
         guilds = client.guilds
-        servers = []
+        #servers = []
 
-        for guild in guilds:
-                servers.append(guild.name)
+        #for guild in guilds:
+        #        servers.append(guild.name)
 
-        message = f'Кол-во серверов: {len(guilds)}. \n' + ', '.join(servers) + '.'
+        message = f'Кол-во серверов: {len(guilds)}.' # + ', '.join(servers) + '.'
         vk = VkThings()
         await vk.sendVk(message)
         print(config.border)
