@@ -106,7 +106,7 @@ class Music(commands.Cog):
         try:
             await self.for_play(ctx=ctx, url=url)
         except:
-            ctx.send('Не вышло')
+            await ctx.send('Не вышло')
 
     @commands.command()
     async def skip(self, ctx):
