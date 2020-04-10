@@ -13,6 +13,7 @@ NAME_SEND = str(os.environ.get('NAME_SEND'))
 DBL_TOKEN = str(os.environ.get('DBL_TOKEN'))
 PYOWM_TOKEN = str(os.environ.get('PYOWM_TOKEN'))
 BOT_TOKEN = str(os.environ.get('BOT_TOKEN'))
+CHANNEL_ID = int(os.environ.get('CHANNEL_ID'))
 
 border = '------------------------'
 
@@ -37,7 +38,9 @@ notPicValue = '\
 **!help** - список команд \n \
 **!hello** - поздороваться с ботом\n \
 **!weather** **город** = погода в этом городе\n \
-**!what** **слово** = определение этого слова \
+**!what** **слово** = определение этого слова \n \
+**!blacklist** - если при вызове картинки пришло не связанное с темой картинки нечто(пустой экран, сообщения с рекламой или донатами),\n \
+то вызовите эту команду после прихода картинки \
 '
 
 musicValue = '\

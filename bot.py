@@ -12,6 +12,7 @@ import pyowm
 from DataBase import DataBase
 import asyncio
 import youtube_dl
+from io import BytesIO
 
 
 client = commands.Bot(commands.when_mentioned_or("!"))
@@ -36,18 +37,15 @@ async def on_ready():
         print(config.border)
 
 @client.event
-async def on_member_join(member):
-        print(f'{member} зашел на сервер {member.guild.name}')
-
-@client.event
-async def on_member_remove(member):
-        print(f'{member} вышел с сервера {member.guild.name}')
-
-@client.event
 async def on_guild_join(guild):
         print(config.border)
         print(f'Теперь ещё и {guild.name}')
         print(config.border)
+
+@client.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        return
 
 @client.command()
 async def hello(ctx):
@@ -143,22 +141,34 @@ async def weather(ctx, city):
 
 @client.command()
 async def blacklist(ctx):
-        if (ctx.message.author.discriminator == '3191' and ctx.message.author.name == 'StatingWaif') or (ctx.message.author.discriminator == '2726' and ctx.message.author.name == 'Rendei<3'):
-                channel = ctx.message.channel
+        channel = ctx.message.channel
 
-                async for message in channel.history(limit=5):
-                        if message.author.discriminator == '2560' and message.author.bot and message.author.name == 'Постироничная шелупонь':
-                                file_name = message.attachments[0].filename
-                                group = file_name.split('_')[0]
-                                pic_num = int(file_name.split('_')[1].replace('.jpg', ''))
+        async for message in channel.history(limit=5):
+                if message.author.discriminator == '2560' and message.author.bot and message.author.name == 'Постироничная шелупонь':
+                
+                        file_name = message.attachments[0].filename
+                        group = file_name.split('_')[0]
+                        pic_num = int(file_name.split('_')[1].replace('.jpg', ''))
 
+                        animals = [':gorilla:', ':dog:', ':pig:', ':cow:', ':koala:', ':frog:', ':boar:', ':monkey_face:', ':panda_face:', ':clown:']
+
+                        if (ctx.message.author.discriminator == '3191' and ctx.message.author.name == 'StatingWaif') or \
+                        (ctx.message.author.discriminator == '2726' and ctx.message.author.name == 'Rendei<3'):
                                 Base = DataBase()
 
                                 await Base.getInDataBase(group, pic_num)
+                                
+
+                                
+                                await ctx.send(f'Ваше пожелание будет исполнено {choice(animals)}')
+                                print('blacklisted')
                                 break
-                animals = [':gorilla:', ':dog:', ':pig:', ':cow:', ':koala:', ':frog:', ':boar:', ':monkey_face:', ':panda_face:']
-                await ctx.send(f'Ваше пожелание будет исполнено{choice(animals)}')
-                print('blacklisted')
+                        else:
+                                bufferfile = discord.File(BytesIO(await message.attachments[0].read()), filename=file_name)
+                                channel = client.get_channel(config.CHANNEL_ID)
+                                await channel.send(file=bufferfile)
+                                await ctx.send(f'Спасибо за содействие {choice(animals)}')
+                                break
 
 @client.command()
 async def help(ctx):
