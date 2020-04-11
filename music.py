@@ -37,6 +37,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
 
         self.data = data
 
+        self.duration = data.get('duration')
         self.title = data.get('title')
         self.url = data.get('url')
 
@@ -51,6 +52,17 @@ class YTDLSource(discord.PCMVolumeTransformer):
         filename = data['url'] if stream else ytdl.prepare_filename(data)
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
+def song_duration(s):
+    h = s // 3600
+    s -= h * 3600
+    m = s // 60
+    s -= m * 60
+
+    if h == 0:
+        return f'{m}:{s // 10}{s % 10}'
+    else:
+        return f'{h}:{m // 10}{m % 10}:{s // 10}{s % 10}'
+
 class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -63,9 +75,9 @@ class Music(commands.Cog):
                 
                 player = queues[guild.id].pop(0)
                 
-                cursong[guild.id] = player.title
+                cursong[guild.id] = f'{player.title} ({song_duration(player.duration)})'
 
-                coro = ctx.send('Сейчас играет: {}'.format(player.title))
+                coro = ctx.send('Сейчас играет: **{} ({})**'.format(player.title, song_duration(player.duration)))
                 fut = asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
                 try:
                     fut.result()
@@ -73,7 +85,7 @@ class Music(commands.Cog):
                     pass
 
                 ctx.voice_client.play(player, after=check_queue)
-            else:
+            elif ctx.voice_client != None:
                 coro = ctx.send("That's all folks!")
                 sec = ctx.voice_client.disconnect()
                 fut2 = asyncio.run_coroutine_threadsafe(sec, self.bot.loop)
@@ -93,20 +105,18 @@ class Music(commands.Cog):
             queues[guild.id].append(player)
             
 
-            await ctx.send(f'{player.title} теперь в очереди')
+            await ctx.send(f'**{player.title} ({song_duration(player.duration)})** теперь в очереди')
         else:
             
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
+
             ctx.voice_client.play(player, after=check_queue)
-            await ctx.send('Сейчас играет: {}'.format(player.title))
-            cursong[guild.id] = player.title
+            await ctx.send('Сейчас играет: **{} ({})**'.format(player.title, song_duration(player.duration)))
+            cursong[guild.id] = f'{player.title} ({song_duration(player.duration)})'
     
     @commands.command()
     async def sr(self, ctx, *, url):
-        try:
-            await self.for_play(ctx=ctx, url=url)
-        except:
-            await ctx.send('Не вышло')
+        await self.for_play(ctx=ctx, url=url)
 
     @commands.command()
     async def skip(self, ctx):
@@ -126,7 +136,7 @@ class Music(commands.Cog):
 
             for i in range(len(queues[ctx.message.guild.id])):
                 song = queues[ctx.message.guild.id][i]
-                message += f'{i + 1}) {song.title} \n'
+                message += f'{i + 1}) {song.title} ({song_duration(song.duration)}) \n'
 
             await ctx.send(message)
         
@@ -136,7 +146,7 @@ class Music(commands.Cog):
             pass
         else:
             song = cursong[ctx.message.guild.id]
-            await ctx.send(f'Сейчас играет: {song}')
+            await ctx.send(f'Сейчас играет: **{song}**')
         
     @commands.command()
     async def pause(self, ctx):

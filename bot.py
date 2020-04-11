@@ -174,10 +174,10 @@ async def blacklist(ctx):
 async def help(ctx):
         embed = discord.Embed(title='Список команд для использования бота', colour=discord.Colour.green())
 
-        embed.add_field(name='Команды для постироничных картинок:', value=config.postValue)
-        embed.add_field(name='Команды для других картинок:', value=config.otherValue)
+        embed.add_field(name='Команды для постироничных картинок', value=config.postValue)
+        embed.add_field(name='Команды для других картинок', value=config.otherValue)
         embed.add_field(name='Команды для музыки', value=config.musicValue)
-        embed.add_field(name='Остальные команды:', value=config.notPicValue)
+        embed.add_field(name='Остальные команды', value=config.notPicValue)
         
         await ctx.send(embed=embed)
         
