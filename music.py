@@ -83,8 +83,9 @@ class Music(commands.Cog):
                     fut.result()
                 except:
                     pass
+                if ctx.voice_client != None:
+                    ctx.voice_client.play(player, after=check_queue)
 
-                ctx.voice_client.play(player, after=check_queue)
             elif ctx.voice_client != None:
                 coro = ctx.send("That's all folks!")
                 sec = ctx.voice_client.disconnect()
@@ -95,6 +96,7 @@ class Music(commands.Cog):
                     fut2.result()
                 except:
                     pass
+
         if not guild.id in queues:
             queues[guild.id] = []
 
