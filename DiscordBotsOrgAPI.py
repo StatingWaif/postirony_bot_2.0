@@ -19,9 +19,9 @@ class DiscordBotsOrgAPI(commands.Cog):
             except Exception as e:
                 print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
 
-            await asyncio.sleep(1800)
-
             print(config.border)
+
+            await asyncio.sleep(1800)
 
 def dbl_setup(bot):
     bot.add_cog(DiscordBotsOrgAPI(bot))
