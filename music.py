@@ -59,9 +59,12 @@ def song_duration(s):
     s -= m * 60
 
     if h == 0:
-        return f'{m}:{s // 10}{s % 10}'
+        dur = f'{m}:{s // 10}{s % 10}'
     else:
-        return f'{h}:{m // 10}{m % 10}:{s // 10}{s % 10}'
+        dur = f'{h}:{m // 10}{m % 10}:{s // 10}{s % 10}'
+    if dur == '0.0:0.00.0':
+        dur = 'stream'
+    return dur
 
 class Music(commands.Cog):
     def __init__(self, bot):
