@@ -23,7 +23,7 @@ dbl_setup(client)
 @client.event
 async def on_ready():
     print(config.border)
-    print(f'{client.user} is ready')
+    print(f'{client.user} снова в игре')
     print(config.border)
     bot_activity = discord.Activity(name='своих родителей !help для списка команд', type=discord.ActivityType.listening)
     await client.change_presence(activity=bot_activity)
@@ -37,6 +37,12 @@ async def on_ready():
 async def on_guild_join(guild):
     print(config.border)
     print(f'Теперь ещё и {guild.name}')
+    print(config.border)
+
+@client.event
+async def on_guild_remove(guild):
+    print(config.border)
+    print(f'{guild.name} больше нет с нами')
     print(config.border)
 
 @client.event
