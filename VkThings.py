@@ -45,7 +45,7 @@ class VkThings:
                         await ctx.send(file=bufferfile)	
                         print(pic)
 
-        async def sendVk(self, message):
-            session = vk.Session(access_token=config.SEND_TOKEN)
-            vk_api = vk.API(session, v='5.45')
-            vk_api.messages.send(domain=config.NAME_SEND, message=message, random_id=randint(0, 1000000000))
+    async def sendVk(self, message):
+        session = vk.Session(access_token=config.SEND_TOKEN)
+        vk_api = vk.API(session, v='5.45')
+        vk_api.messages.send(domain=config.NAME_SEND, message=message, random_id=randint(0, 1000000000))
