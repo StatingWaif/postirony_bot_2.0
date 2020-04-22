@@ -135,10 +135,9 @@ class Music(commands.Cog):
                         count += 1
                         music_source = i['href']
                         new_url = f'youtube.com{music_source}'
-                        percent = int(count / len(links) * 100)
 
                         await self.for_play(ctx=ctx, url=new_url, playlist=True)
-                        content = f'**Плейлист добавлен на {percent}%**'
+                        content = f'**Из плейлиста добавлено песен {count} из {len(links)}**'
                         await message.edit(content=content)
 
     @commands.command()
