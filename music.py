@@ -70,7 +70,7 @@ class Music(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def for_play(self, ctx, *, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ'):
+    async def for_play(self, ctx, *, url='https://www.youtube.com/watch?v=dQw4w9WgXcQ', playlist=False):
         guild = ctx.message.guild
 
         def check_queue(error):
@@ -109,8 +109,8 @@ class Music(commands.Cog):
             
             queues[guild.id].append(player)
             
-
-            await ctx.send(f'**{player.title} ({song_duration(player.duration)})** теперь в очереди')
+            if not playlist:
+                await ctx.send(f'**{player.title} ({song_duration(player.duration)})** теперь в очереди')
         else:
             
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
@@ -119,9 +119,34 @@ class Music(commands.Cog):
             await ctx.send('Сейчас играет: **{} ({})**'.format(player.title, song_duration(player.duration)))
             cursong[guild.id] = f'{player.title} ({song_duration(player.duration)})'
     
+    async def for_playlist(self, ctx, *, url):
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as source:
+                if source.status == 200:
+                    content = await source.read()
+                    soup = bs(content, 'lxml')
+
+                    links = soup.find_all('a', attrs={'class':"pl-video-title-link yt-uix-tile-link yt-uix-sessionlink spf-link"})
+
+                    message = await ctx.send('**Начинаю добавлять плейлист**')
+
+                    count = 0
+                    for i in links:
+                        count += 1
+                        music_source = i['href']
+                        new_url = f'youtube.com{music_source}'
+                        percent = int(count / len(links) * 100)
+
+                        await self.for_play(ctx=ctx, url=new_url, playlist=True)
+                        content = f'**Плейлист добавлен на {percent}%**'
+                        await message.edit(content=content)
+
     @commands.command()
     async def sr(self, ctx, *, url):
-        await self.for_play(ctx=ctx, url=url)
+        if '/playlist' in url:
+            await self.for_playlist(ctx=ctx, url=url)
+        else:
+            await self.for_play(ctx=ctx, url=url)
 
     @commands.command()
     async def skip(self, ctx):
@@ -134,6 +159,7 @@ class Music(commands.Cog):
     async def songlist(self, ctx):
         if not ctx.message.guild.id in queues:
             queues[ctx.message.guild.id] = []
+
         if queues[ctx.message.guild.id] == []:
             await ctx.send('В очереди ничего нет')
         else:
@@ -141,9 +167,11 @@ class Music(commands.Cog):
 
             for i in range(len(queues[ctx.message.guild.id])):
                 song = queues[ctx.message.guild.id][i]
-                message += f'{i + 1}) {song.title} ({song_duration(song.duration)}) \n'
+                message += f'**{i + 1}) {song.title} ({song_duration(song.duration)})** \n'
+            embed = discord.Embed(title='Треки в очереди', colour=discord.Colour.green(), description=message)
 
-            await ctx.send(message)
+
+            await ctx.send(embed=embed)
         
     @commands.command()
     async def cursong(self, ctx):
