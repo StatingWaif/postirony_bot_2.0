@@ -5,7 +5,9 @@ from discord.ext import commands
 from bs4 import BeautifulSoup as bs
 import aiohttp
 
-queues = {}
+names = {}
+urls = {}
+
 cursong = {}
 youtube_dl.utils.bug_reports_message = lambda: ''
 
@@ -74,40 +76,53 @@ class Music(commands.Cog):
         guild = ctx.message.guild
 
         def check_queue(error):
-            if queues[guild.id] != []: 
+            if ctx.voice_client:
+                if urls[guild.id] != []: 
                 
-                player = queues[guild.id].pop(0)
+                    source = urls[guild.id].pop(0)
+                    names[guild.id].pop(0)
+
+                    make_player = YTDLSource.from_url(source, loop=self.bot.loop, stream=True)
+                    try_player = asyncio.run_coroutine_threadsafe(make_player, self.bot.loop)
+
+                    try:
+                        player = try_player.result()
+                    except:
+                        pass
                 
-                cursong[guild.id] = f'{player.title} ({song_duration(player.duration)})'
+                    cursong[guild.id] = f'{player.title} ({song_duration(player.duration)})'
 
-                coro = ctx.send('Сейчас играет: **{} ({})**'.format(player.title, song_duration(player.duration)))
-                fut = asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
-                try:
-                    fut.result()
-                except:
-                    pass
-                if ctx.voice_client != None:
-                    ctx.voice_client.play(player, after=check_queue)
+                    coro = ctx.send('Сейчас играет: **{} ({})**'.format(player.title, song_duration(player.duration)))
+                    fut = asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
+                    try:
+                        fut.result()
+                    except:
+                        pass
+                    if ctx.voice_client != None:
+                        ctx.voice_client.play(player, after=check_queue)
 
-            elif ctx.voice_client != None:
-                coro = ctx.send("That's all folks!")
-                sec = ctx.voice_client.disconnect()
-                fut2 = asyncio.run_coroutine_threadsafe(sec, self.bot.loop)
-                fut = asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
-                try:
-                    fut.result()
-                    fut2.result()
-                except:
-                    pass
+                else:
+                    coro = ctx.send("That's all folks!")
+                    cursong[guild.id] = None
+                    sec = ctx.voice_client.disconnect()
+                    fut2 = asyncio.run_coroutine_threadsafe(sec, self.bot.loop)
+                    fut = asyncio.run_coroutine_threadsafe(coro, self.bot.loop)
+                    try:
+                        fut.result()
+                        fut2.result()
+                    except:
+                        pass
 
-        if not guild.id in queues:
-            queues[guild.id] = []
+        if not guild.id in urls:
+            urls[guild.id] = []
+            names[guild.id] = []
 
-        if (ctx.voice_client.is_playing() or queues[guild.id] != []): 
+        if guild.id in cursong and cursong[guild.id] != None:
             player = await YTDLSource.from_url(url, loop=self.bot.loop, stream=True)
 
             
-            queues[guild.id].append(player)
+            urls[guild.id].append(url)
+            names[guild.id].append(f'{player.title} ({song_duration(player.duration)})')
             
             if not playlist:
                 await ctx.send(f'**{player.title} ({song_duration(player.duration)})** теперь в очереди')
@@ -130,15 +145,18 @@ class Music(commands.Cog):
 
                     message = await ctx.send('**Начинаю добавлять плейлист**')
 
-                    count = 0
+                    count = 1
                     for i in links:
-                        count += 1
-                        music_source = i['href']
-                        new_url = f'youtube.com{music_source}'
+                        try:
+                            music_source = i['href']
+                            new_url = f'youtube.com{music_source}'
 
-                        await self.for_play(ctx=ctx, url=new_url, playlist=True)
-                        content = f'**Из плейлиста добавлено песен {count} из {len(links)}**'
-                        await message.edit(content=content)
+                            await self.for_play(ctx=ctx, url=new_url, playlist=True)
+                            content = f'**Из плейлиста добавлено песен {count} из {len(links)}**'
+                            await message.edit(content=content)
+                        except:
+                            continue
+                        count += 1
 
     @commands.command()
     async def sr(self, ctx, *, url):
@@ -156,19 +174,19 @@ class Music(commands.Cog):
     
     @commands.command()
     async def songlist(self, ctx):
-        if not ctx.message.guild.id in queues:
-            queues[ctx.message.guild.id] = []
+        if not ctx.message.guild.id in names:
+            names[ctx.message.guild.id] = []
+            urls[ctx.message.guild.id] = []
 
-        if queues[ctx.message.guild.id] == []:
+        if names[ctx.message.guild.id] == []:
             await ctx.send('В очереди ничего нет')
         else:
             message = ''
 
-            for i in range(len(queues[ctx.message.guild.id])):
-                song = queues[ctx.message.guild.id][i]
-                message += f'**{i + 1}) {song.title} ({song_duration(song.duration)})** \n'
+            for i in range(len(names[ctx.message.guild.id])):
+                song = names[ctx.message.guild.id][i]
+                message += f'**{i + 1}) {song}** \n'
             embed = discord.Embed(title='Треки в очереди', colour=discord.Colour.green(), description=message)
-
 
             await ctx.send(embed=embed)
         
@@ -197,8 +215,9 @@ class Music(commands.Cog):
     @commands.command()
     async def clearq(self, ctx):
         guild = ctx.message.guild
-        if guild.id in queues:
-            queues[guild.id] = []
+        if guild.id in urls:
+            urls[guild.id] = []
+            names[guild.id] = []
             await ctx.send('Очередь очищена')
     
     @sr.before_invoke
