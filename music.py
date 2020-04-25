@@ -112,6 +112,9 @@ class Music(commands.Cog):
                         fut2.result()
                     except:
                         pass
+            else:
+                cursong[guild.id] = None
+
 
         if not guild.id in urls:
             urls[guild.id] = []
