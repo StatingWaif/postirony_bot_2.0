@@ -103,9 +103,24 @@ async def girlpic(ctx):
     except AttributeError:
         await ctx.send('Используйте эту команду только в **NSFW** канале')
 
+
+@client.command()
+async def hentaipic(ctx):
+    try:
+        if ctx.channel.is_nsfw():
+            await vt.vkPic(ctx, 'https://vk.com/album-138698986_00')
+        else:
+            await ctx.send(r'Канал должен быть **NSFW**  ¯\_(ツ)_/¯')
+    except AttributeError:
+        await ctx.send('Используйте эту команду только в **NSFW** канале')
+
 @client.command()
 async def memepic(ctx):
     await vt.vkPic(ctx, 'https://vk.com/album-150550417_00')
+
+@client.command()
+async def jojopic(ctx):
+    await vt.vkPic(ctx, 'https://vk.com/album-185642550_00')
 
 @client.command(aliases=['что', 'определение'])
 async def what(ctx, *args):

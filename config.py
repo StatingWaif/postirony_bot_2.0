@@ -29,9 +29,11 @@ postValue = '\
 
 otherValue = '\
 **!gachipic** - гачимучи картинка\n \
+**!jojopic** - jojo мем\n \
 **!memepic** - english meme\n \
 **!papichpic** - несмешная картинка с папичем\n \
-**!girlpic** - картинка с полуголой женщиной(**NSFW**) \
+**!girlpic** - картинка с полуголой женщиной(**NSFW**)\n \
+**!hentaipic** - хентай картинка(**NSFW**)\n \
 '
 
 notPicValue = '\
