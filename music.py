@@ -181,13 +181,17 @@ class Music(commands.Cog):
             names[ctx.message.guild.id] = []
             urls[ctx.message.guild.id] = []
 
-        if names[ctx.message.guild.id] == []:
+        songs = names[ctx.message.guild.id]
+
+        if songs == []:
             await ctx.send('В очереди ничего нет')
+        elif len(songs) > 34:
+            await ctx.send(f'Композиций в очереди: {len(songs)}')
         else:
             message = ''
 
-            for i in range(len(names[ctx.message.guild.id])):
-                song = names[ctx.message.guild.id][i]
+            for i in range(len(songs)):
+                song = songs[i]
                 message += f'**{i + 1}) {song}** \n'
             embed = discord.Embed(title='Треки в очереди', colour=discord.Colour.green(), description=message)
 
