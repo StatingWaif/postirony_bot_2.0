@@ -42,7 +42,8 @@ notPicValue = '\
 **!weather** **город** - погода в этом городе\n \
 **!what** **слово** - определение этого слова \n \
 **!blacklist** - если при вызове картинки пришло не связанное с темой картинки нечто(пустой экран, сообщения с рекламой или донатами),\n \
-то вызовите эту команду после прихода картинки \
+то вызовите эту команду после прихода картинки\n \
+**!picsource** - источники картинок бота \
 '
 
 musicValue = '\
@@ -54,3 +55,23 @@ musicValue = '\
 **!songlist** - список музыки в очереди \n \
 **!clearq** - очистить очередь \n \
 '
+
+links1 = '\
+[postpic](https://vk.com/memnij)\n\
+[kindpic](https://vk.com/kind_post)\n\
+[rompic](https://vk.com/devkironiya)\n\
+[agrpic](https://vk.com/agrironia)\n\
+[schoolpic](https://vk.com/chomemi)\n\
+[villpic](https://vk.com/postironiya2006)\n\
+[progpic](https://vk.com/postironyaprogrammistov)\n\
+'
+
+links2 = '\
+[gachipic](https://vk.com/gachimuchi)\n\
+[jojopic](https://vk.com/dankjojomemes)\n\
+[memepic](https://vk.com/reddit)\n\
+[papichpic](https://vk.com/papicheveryday)\n\
+[girlpic](https://vk.com/geekgirls)\n\
+[hentaipic](https://vk.com/club_1_15)\n\
+'
+

@@ -122,6 +122,14 @@ async def memepic(ctx):
 async def jojopic(ctx):
     await vt.vkPic(ctx, 'https://vk.com/album-185642550_00')
 
+@client.command()
+async def picsource(ctx):
+    embed = discord.Embed(title='Паблики вк с картинками', colour=discord.Colour.green())
+    embed.add_field(name='Постироничные', value=config.links1)
+    embed.add_field(name='Другие', value=config.links2)
+
+    await ctx.send(embed=embed)
+
 @client.command(aliases=['что', 'определение'])
 async def what(ctx, *args):
     wiki_wiki = wikipediaapi.Wikipedia(language='ru', extract_format=wikipediaapi.ExtractFormat.HTML)
