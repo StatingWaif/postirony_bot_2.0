@@ -15,7 +15,7 @@ PYOWM_TOKEN = str(os.environ.get('PYOWM_TOKEN'))
 BOT_TOKEN = str(os.environ.get('BOT_TOKEN'))
 CHANNEL_ID = int(os.environ.get('CHANNEL_ID'))
 
-border = '------------------------'
+border = '-------------------------'
 
 postValue = '\
 **!postpic** - классическая картинка\n \

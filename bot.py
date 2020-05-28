@@ -36,13 +36,13 @@ async def on_ready():
 @client.event
 async def on_guild_join(guild):
     print(config.border)
-    print(f'Теперь ещё и {guild.name}')
+    print(f'Новый: {guild.name}')
     print(config.border)
 
 @client.event
 async def on_guild_remove(guild):
     print(config.border)
-    print(f'{guild.name} больше нет с нами')
+    print(f'Ушёл: {guild.name}')
     print(config.border)
 
 @client.event
@@ -194,6 +194,10 @@ async def blacklist(ctx):
                 channel = client.get_channel(config.CHANNEL_ID)
                 await channel.send(file=bufferfile)
                 await ctx.send(f'Спасибо за содействие {choice(animals)}')
+                try:
+                    print(f'[{ctx.message.guild.name}] blacklist')
+                except:
+                    print(f'[user {ctx.message.author.name}] blacklist')
                 break
 
 @client.command()
