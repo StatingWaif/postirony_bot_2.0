@@ -46,7 +46,7 @@ class VkThings:
                         try:
                             print(f'[{ctx.message.guild.name}] {pic}')
                         except:
-                            print(f'[{ctx.message.author.name}] {pic}')
+                            print(f'[user {ctx.message.author.name}] {pic}')
 
     async def sendVk(self, message):
         session = vk.Session(access_token=config.SEND_TOKEN)
