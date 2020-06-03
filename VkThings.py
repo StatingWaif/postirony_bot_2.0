@@ -11,7 +11,7 @@ class VkThings:
     async def vkPic(self, ctx, url):
         async with ctx.typing():
             session = vk.Session(access_token=config.VK_TOKEN)
-            vk_api = vk.API(session, v='5.0')
+            vk_api = vk.API(session, v='5.81')
 
             owner_id = url.split('/')[-1].replace('album', '').replace('_00', '')
 
@@ -34,7 +34,7 @@ class VkThings:
 
             offset = pic - (pic % 1000)
             photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=1000, photo_sizes=1, offset=offset)
-            photo = photos['items'][pic - offset]['sizes'][-1]['src']
+            photo = photos['items'][pic - offset]['sizes'][-1]['url']
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(photo) as resp:
@@ -50,5 +50,5 @@ class VkThings:
 
     async def sendVk(self, message):
         session = vk.Session(access_token=config.SEND_TOKEN)
-        vk_api = vk.API(session, v='5.45')
+        vk_api = vk.API(session, v='5.81')
         vk_api.messages.send(domain=config.NAME_SEND, message=message, random_id=randint(0, 1000000000))
