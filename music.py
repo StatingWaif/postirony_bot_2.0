@@ -164,7 +164,8 @@ class Music(commands.Cog):
     @commands.command()
     async def sr(self, ctx, *, url):
         if '/playlist' in url:
-            await self.for_playlist(ctx=ctx, url=url)
+            #await self.for_playlist(ctx=ctx, url=url)
+            pass
         else:
             await self.for_play(ctx=ctx, url=url)
 
@@ -233,4 +234,4 @@ class Music(commands.Cog):
             if ctx.author.voice:
                 await ctx.author.voice.channel.connect()
             else:
-                await ctx.send(f"{ctx.message.author.mention} Подключись к войсу сначала, дурачок")
+                await ctx.send(f"{ctx.message.author.mention} Подключись к войсу сначала :clown:")

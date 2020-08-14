@@ -25,7 +25,7 @@ async def on_ready():
     print(config.border)
     print(f'{client.user} снова в игре')
     print(config.border)
-    bot_activity = discord.Activity(name='своих родителей !help для списка команд', type=discord.ActivityType.listening)
+    bot_activity = discord.Activity(name='Жыве Беларусь !help', type=discord.ActivityType.listening)
     await client.change_presence(activity=bot_activity)
     guilds = client.guilds
     
@@ -62,20 +62,12 @@ async def postpic(ctx):
     await vt.vkPic(ctx, 'https://vk.com/album-162305728_00')
 
 @client.command()
-async def schoolpic(ctx):
-    await vt.vkPic(ctx, 'https://vk.com/album-185340181_00')
-
-@client.command()
 async def agrpic(ctx):
     await vt.vkPic(ctx, 'https://vk.com/album-184764992_00')
 
 @client.command()
 async def kindpic(ctx):
-    await vt.vkPic(ctx, 'https://vk.com/album-184003532_00')
-
-@client.command()
-async def villpic(ctx):
-    await vt.vkPic(ctx, 'https://vk.com/album-186137194_00')
+    await vt.vkPic(ctx, 'https://vk.com/album-147286578_00')
 
 @client.command()
 async def rompic(ctx):

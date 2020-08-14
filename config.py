@@ -19,16 +19,14 @@ border = '-------------------------'
 
 postValue = '\
 **!postpic** - классическая картинка\n \
-**!kindpic** - добрая картинка \n \
-**!rompic** - романтичная картинка для общения с дамами \n \
+**!rompic** - романтичная картинка \n \
 **!agrpic** - агрессивная картинка \n \
-**!schoolpic** - школьная картинка \n \
-**!villpic** - деревенская картинка \n \
 **!progpic** - погромистская картинка \n \
 '
 
 otherValue = '\
-**!gachipic** - гачимучи картинка\n \
+**!gachipic** - гачи картинка\n \
+**!kindpic** - добрая картинка \n \
 **!jojopic** - jojo мем\n \
 **!memepic** - english meme\n \
 **!papichpic** - несмешная картинка с папичем\n \
@@ -47,7 +45,7 @@ notPicValue = '\
 '
 
 musicValue = '\
-**!sr название** - заказать музыку(а можно и плейлист)(youtube ссылка или название)\n \
+**!sr название** - заказать музыку(youtube ссылка или название)\n \
 **!skip** - пропустить музыку\n \
 **!cursong** - текущая музыка\n \
 **!pause** - пауза\n \
@@ -58,16 +56,15 @@ musicValue = '\
 
 links1 = '\
 [postpic](https://vk.com/memnij)\n\
-[kindpic](https://vk.com/kind_post)\n\
 [rompic](https://vk.com/devkironiya)\n\
 [agrpic](https://vk.com/agrironia)\n\
 [schoolpic](https://vk.com/chomemi)\n\
-[villpic](https://vk.com/postironiya2006)\n\
 [progpic](https://vk.com/postironyaprogrammistov)\n\
 '
 
 links2 = '\
 [gachipic](https://vk.com/gachimuchi)\n\
+[kindpic](https://vk.com/dobriememes)\n\
 [jojopic](https://vk.com/dankjojomemes)\n\
 [memepic](https://vk.com/reddit)\n\
 [papichpic](https://vk.com/papicheveryday)\n\
