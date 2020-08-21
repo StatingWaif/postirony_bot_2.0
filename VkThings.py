@@ -15,7 +15,7 @@ class VkThings:
 
             owner_id = url.split('/')[-1].replace('album', '').replace('_00', '')
 
-            photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=1000, photo_sizes=1)
+            photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=0, photo_sizes=1)
             num_of_photos = photos['count']
 
             pic = randint(0, num_of_photos - 1)
@@ -32,9 +32,8 @@ class VkThings:
             while await Base.isInBase(group, pic):
                 pic = randint(0, num_of_photos - 1)
 
-            offset = pic - (pic % 1000)
-            photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=1000, photo_sizes=1, offset=offset)
-            photo = photos['items'][pic - offset]['sizes'][-1]['url']
+            photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=1, photo_sizes=1, offset=pic)
+            photo = photos['items'][0]['sizes'][-1]['url']
 
             async with aiohttp.ClientSession() as session:
                 async with session.get(photo) as resp:
