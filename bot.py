@@ -29,7 +29,7 @@ async def on_ready():
     await client.change_presence(activity=bot_activity)
     guilds = client.guilds
     
-    message = f'Кол-во серверов: {len(guilds)}.'
+    message = f'{len(guilds)} - кол-во серверов'
     vk = VkThings()
     await vk.sendVk(message)
 
