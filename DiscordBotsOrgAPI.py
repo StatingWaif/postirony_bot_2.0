@@ -1,5 +1,5 @@
 import dbl
-from discord.ext import commands
+from discord.ext import commands, tasks
 import config
 import asyncio
 
@@ -8,20 +8,22 @@ class DiscordBotsOrgAPI(commands.Cog):
         self.bot = bot
         self.token = config.DBL_TOKEN
         self.dblpy = dbl.DBLClient(self.bot, self.token)
-        self.updating = self.bot.loop.create_task(self.update_stats())
+        self.update_stats.start()
 
+    def cog_unload(self):
+        self.update_stats.cancel()
+
+    @tasks.loop(minutes=30)
     async def update_stats(self):
-        while not self.bot.is_closed():                
-            try:
-                print(config.border)
-                await self.dblpy.post_guild_count()
-                print('Posted server count ({})'.format(self.dblpy.guild_count()))
-            except Exception as e:
-                print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+        await self.bot.wait_until_ready()
+        try:
+            server_count = len(self.bot.guilds)
+            await self.dblpy.post_guild_count(server_count)
+            print('Posted server count ({})'.format(server_count))
+        except Exception as e:
+            print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
 
-            print(config.border)
-
-            await asyncio.sleep(1800)
+        print(config.border)
 
 def dbl_setup(bot):
     bot.add_cog(DiscordBotsOrgAPI(bot))
