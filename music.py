@@ -66,6 +66,8 @@ def song_duration(s):
         dur = f'{h}:{m // 10}{m % 10}:{s // 10}{s % 10}'
     if dur == '0.0:0.00.0':
         dur = 'stream'
+    print(s)
+    print(dur)
     return dur
 
 class Music(commands.Cog):
