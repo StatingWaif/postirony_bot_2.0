@@ -17,6 +17,7 @@ class DiscordBotsOrgAPI(commands.Cog):
     async def update_stats(self):
         await self.bot.wait_until_ready()
         try:
+            print(config.border)
             server_count = len(self.bot.guilds)
             await self.dblpy.post_guild_count(server_count)
             print('Posted server count ({})'.format(server_count))
