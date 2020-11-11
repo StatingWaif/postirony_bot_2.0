@@ -55,7 +55,7 @@ class YTDLSource(discord.PCMVolumeTransformer):
         return cls(discord.FFmpegPCMAudio(filename, **ffmpeg_options), data=data)
 
 def song_duration(s):
-    print(s, type(s))
+    
     s = int(s)
     h = s // 3600
     s -= h * 3600
@@ -66,10 +66,10 @@ def song_duration(s):
         dur = f'{m}:{s // 10}{s % 10}'
     else:
         dur = f'{h}:{m // 10}{m % 10}:{s // 10}{s % 10}'
-    if dur == '0.0:0.00.0':
+    if dur == '0:00':
         dur = 'stream'
     
-    print(dur)
+    
     return dur
 
 class Music(commands.Cog):
