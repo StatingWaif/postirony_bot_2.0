@@ -22,6 +22,7 @@ postValue = '\
 **!rompic** - романтичная картинка \n \
 **!agrpic** - агрессивная картинка \n \
 **!progpic** - погромистская картинка \n \
+**!babkipic** - бабки со снюсом \n \
 '
 
 otherValue = '\
@@ -60,6 +61,7 @@ links1 = '\
 [agrpic](https://vk.com/agrironia)\n\
 [schoolpic](https://vk.com/chomemi)\n\
 [progpic](https://vk.com/postironyaprogrammistov)\n\
+[babkipic](https://vk.com/snuskarga)\n\
 '
 
 links2 = '\
