@@ -41,11 +41,12 @@ class VkThings:
                         buffer = BytesIO(await resp.read())
                         group = owner_id.replace('-', '')
                         bufferfile = discord.File(buffer, filename=f'{group}_{pic}.jpg')
-                        await ctx.send(file=bufferfile)	
+                        await ctx.send(file=bufferfile)
+                        command_name = ctx.command.name
                         try:
-                            print(f'[{ctx.message.guild.name}] {pic}')
+                            print(f'[{ctx.message.guild.name}] {command_name} {pic}')
                         except:
-                            print(f'[user {ctx.message.author.name}] {pic}')
+                            print(f'[user {ctx.message.author.name}] {command_name} {pic}')
 
     async def sendVk(self, message):
         session = vk.Session(access_token=config.SEND_TOKEN)
