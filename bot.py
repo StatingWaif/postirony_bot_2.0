@@ -90,6 +90,10 @@ async def babkipic(ctx):
     await vt.vkPic(ctx, 'https://vk.com/album-199549875_00')
 
 @client.command()
+async def randompic(ctx):
+    await vt.vkPic(ctx, 'https://vk.com/album-109290951_00')
+
+@client.command()
 async def girlpic(ctx):
     try:
         if ctx.channel.is_nsfw():

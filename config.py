@@ -26,6 +26,7 @@ postValue = '\
 '
 
 otherValue = '\
+**!randompic** - случайная картиночка \n \
 **!gachipic** - гачи картинка\n \
 **!kindpic** - добрая картинка \n \
 **!jojopic** - jojo мем\n \
@@ -65,6 +66,7 @@ links1 = '\
 '
 
 links2 = '\
+[randompic](https://vk.com/picrandom)\n\
 [gachipic](https://vk.com/gachimuchi)\n\
 [kindpic](https://vk.com/dobriememes)\n\
 [jojopic](https://vk.com/dankjojomemes)\n\
