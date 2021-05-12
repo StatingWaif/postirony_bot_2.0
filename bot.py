@@ -33,7 +33,7 @@ async def update_stats():
     """This function runs every 30 minutes to automatically update your server count."""
     try:
         print(config.border)
-        await bot.dblpy.post_guild_count()
+        await client.dblpy.post_guild_count()
         print(f'Posted server count ({bot.dblpy.guild_count})')
     except Exception as e:
         print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
