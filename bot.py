@@ -26,7 +26,7 @@ import dbl
 # This example uses tasks provided by discord.ext to create a task that posts guild count to top.gg every 30 minutes.
 
 dbl_token = config.DBL_TOKEN  # set this to your bot's top.gg token
-bot.dblpy = dbl.DBLClient(client, dbl_token)
+client.dblpy = dbl.DBLClient(client, dbl_token)
 
 @tasks.loop(minutes=30)
 async def update_stats():
