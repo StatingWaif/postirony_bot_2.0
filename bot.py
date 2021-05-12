@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 #from DiscordBotsOrgAPI import DiscordBotsOrgAPI, dbl_setup
-from DiscordBotsOrgAPI import dbl_setup
+#from DiscordBotsOrgAPI import dbl_setup
 import config
 from VkThings import VkThings
 import music
@@ -18,7 +18,28 @@ from io import BytesIO
 client = commands.Bot(commands.when_mentioned_or("!"))
 client.remove_command('help')
 
-dbl_setup(client)
+#dbl_setup(client)
+from discord.ext import tasks
+
+import dbl
+
+# This example uses tasks provided by discord.ext to create a task that posts guild count to top.gg every 30 minutes.
+
+dbl_token = config.DBL_TOKEN  # set this to your bot's top.gg token
+bot.dblpy = dbl.DBLClient(client, dbl_token)
+
+@tasks.loop(minutes=30)
+async def update_stats():
+    """This function runs every 30 minutes to automatically update your server count."""
+    try:
+        print(config.border)
+        await bot.dblpy.post_guild_count()
+        print(f'Posted server count ({bot.dblpy.guild_count})')
+    except Exception as e:
+        print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+    print(config.border)
+
+update_stats.start()
 
 @client.event
 async def on_ready():
