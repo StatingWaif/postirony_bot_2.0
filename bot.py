@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 #from DiscordBotsOrgAPI import DiscordBotsOrgAPI, dbl_setup
-from DiscordBotsOrgAPI import kuku, dbl_setup
+from DiscordBotsOrgAPI import dbl_setup
 import config
 from VkThings import VkThings
 import music
