@@ -1,7 +1,7 @@
 #import dbl
-#from discord.ext import commands, tasks
+from discord.ext import commands, tasks
 #import config
-#import asyncio
+import asyncio
 
 #class DiscordBotsOrgAPI(commands.Cog):
 #    def __init__(self, bot):
@@ -36,19 +36,22 @@ import config
 from bot import client
 
 # This example uses tasks provided by discord.ext to create a task that posts guild count to top.gg every 30 minutes.
+class kuku(commands.Cog):
+    self.dbl_token = config.DBL_TOKEN  # set this to your bot's top.gg token
+    self.bot.dblpy = dbl.DBLClient(client, dbl_token)
 
-dbl_token = config.DBL_TOKEN  # set this to your bot's top.gg token
-bot.dblpy = dbl.DBLClient(client, dbl_token)
-
-@tasks.loop(minutes=30)
-async def update_stats():
-    """This function runs every 30 minutes to automatically update your server count."""
-    try:
+    @tasks.loop(minutes=30)
+    async def update_stats(self):
+        """This function runs every 30 minutes to automatically update your server count."""
+        try:
+            print(config.border)
+            await self.bot.dblpy.post_guild_count()
+            print(f'Posted server count ({bot.dblpy.guild_count})')
+        except Exception as e:
+            print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
         print(config.border)
-        await bot.dblpy.post_guild_count()
-        print(f'Posted server count ({bot.dblpy.guild_count})')
-    except Exception as e:
-        print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
-    print(config.border)
 
-update_stats.start()
+    self.update_stats.start()
+
+def dbl_setup(bot):
+    bot.add_cog(kuku(bot))

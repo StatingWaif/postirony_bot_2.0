@@ -14,7 +14,7 @@ class DataBase:
 
         async def getInDataBase(self, group, pic):
                 mycursor = self.mydb.cursor()
-                if not self.isInBase(group, pic):
+                if not await self.isInBase(group, pic):
                     try:
                             mycursor.execute(f'INSERT INTO group_{group} VALUE ({pic})')
                     except mysql.connector.errors.ProgrammingError:
