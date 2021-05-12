@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-from DiscordBotsOrgAPI import DiscordBotsOrgAPI, dbl_setup
-from DiscordBotsOrgAPI import dbl_setup
+#from DiscordBotsOrgAPI import DiscordBotsOrgAPI, dbl_setup
+#from DiscordBotsOrgAPI import dbl_setup
 import config
 from VkThings import VkThings
 import music
@@ -18,7 +18,7 @@ from io import BytesIO
 client = commands.Bot(commands.when_mentioned_or("!"))
 client.remove_command('help')
 
-dbl_setup(client)
+#dbl_setup(client)
 
 @client.event
 async def on_ready():

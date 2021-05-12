@@ -23,7 +23,7 @@ class VkThings:
             Base = DataBase()
             mycursor = Base.mydb.cursor()
             group = owner_id.replace('-', '')
-
+            message = str(pic) + ' '
             try:
                 mycursor.execute(f'SELECT * FROM group_{group}')
             except mysql.connector.errors.ProgrammingError:
@@ -31,6 +31,7 @@ class VkThings:
 
             while await Base.isInBase(group, pic):
                 pic = randint(0, num_of_photos - 1)
+                message += f'--> {pic} '
 
             photos = vk_api.photos.get(owner_id=owner_id, album_id='wall', rev=0, count=1, photo_sizes=1, offset=pic)
             photo = photos['items'][0]['sizes'][-1]['url']
@@ -44,9 +45,9 @@ class VkThings:
                         await ctx.send(file=bufferfile)
                         command_name = ctx.command.name
                         try:
-                            print(f'[{ctx.message.guild.name}] {command_name} {pic}')
+                            print(f'[{ctx.message.guild.name}] {command_name} {message}')
                         except:
-                            print(f'[user {ctx.message.author.name}] {command_name} {pic}')
+                            print(f'[user {ctx.message.author.name}] {command_name} {message}')
 
     async def sendVk(self, message):
         session = vk.Session(access_token=config.SEND_TOKEN)
