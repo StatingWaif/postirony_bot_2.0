@@ -28,18 +28,25 @@ import dbl
 dbl_token = config.DBL_TOKEN  # set this to your bot's top.gg token
 client.dblpy = dbl.DBLClient(client, dbl_token)
 
-@tasks.loop(minutes=30)
-async def update_stats():
-    """This function runs every 30 minutes to automatically update your server count."""
-    try:
-        print(config.border)
-        await client.dblpy.post_guild_count()
-        print(f'Posted server count ({bot.dblpy.guild_count})')
-    except Exception as e:
-        print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+try:
     print(config.border)
+    client.dblpy.post_guild_count()
+    print(f'Posted server count ({bot.dblpy.guild_count})')
+except Exception as e:
+    print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+    print(config.border)
+#@tasks.loop(minutes=30)
+#async def update_stats():
+#    """This function runs every 30 minutes to automatically update your server count."""
+#    try:
+#        print(config.border)
+#        await client.dblpy.post_guild_count()
+#        print(f'Posted server count ({bot.dblpy.guild_count})')
+#    except Exception as e:
+#        print('Failed to post server count\n{}: {}'.format(type(e).__name__, e))
+#    print(config.border)
 
-update_stats.start()
+#update_stats.start()
 
 @client.event
 async def on_ready():
