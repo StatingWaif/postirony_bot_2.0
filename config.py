@@ -62,7 +62,7 @@ links1 = '\
 [agrpic](https://vk.com/agrironia)\n\
 [schoolpic](https://vk.com/chomemi)\n\
 [progpic](https://vk.com/postironyaprogrammistov)\n\
-[babkipic](https://vk.com/snuskarga)\n\
+[babkipic](https://vk.com/babki.i.snus)\n\
 '
 
 links2 = '\
